@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Para Mimi</title>
+  <link rel="icon" type="image/png" href="imagenes/corazon.png">
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f7f7f7;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      animation: fadeIn 1s ease;
+    }
+
+    @keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
+
+    .card {
+      background: white;
+      width: 90%;
+      max-width: 480px;
+      padding: 20px;
+      margin-top: 30px;
+      border-radius: 20px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      text-align: center;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+
+    .card img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 15px;
+    }
+
+    button {
+      padding: 12px;
+      border: none;
+      border-radius: 12px;
+      background: #ff4d88;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover { background: #e63b74; }
+
+    .hearts {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .heart {
+      position: absolute;
+      font-size: 20px;
+      animation: fall 4s linear infinite;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(-10%); opacity:1; }
+      100% { transform: translateY(110%); opacity:0; }
+    }
+
+    /* 🌙 MODO OSCURO */
+    .dark-mode { background:#1a1a1a; color:white; }
+    .dark-mode .card { background:#2a2a2a; }
+    .dark-mode #extra-section { background:#2a2a2a; color:white; }
+    .dark-mode .memory-box { background:#2a2a2a; color:white; }
+    .dark-mode button { background:#ff6699; }
+
+    /* SECCION EXTRA */
+    #extra-section {
+      margin-top: 40px;
+      padding: 20px;
+      width: 90%;
+      max-width: 480px;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    /* CAJAS DE FOTO + TEXTO */
+    .memory-box {
+      margin-top: 20px;
+      padding: 15px;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    .memory-box img {
+      max-width: 230px;
+      border-radius: 12px;
+      margin-bottom: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="card" id="previewCard">
+    <img id="profileImg" src="imagenes/D611C370-FF44-4AD5-9316-4DF4A44BD438.jpg" alt="" />
+    <h2 id="nameText">Para Mimi</h2>
+    <p id="messageText">Espero que te guste, lo hice con mucho cariño para vos ❤️</p>
+  </div>
+
+  <!-- RAMOS -->
+  <div id="bouquetWrapper" style="display:flex;flex-direction:column;align-items:center;margin-top:10px;">
+    <div id="bouquetContainer" style="width:220px;height:260px;"></div>
+
+    <div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap;justify-content:center;">
+      <button onclick="renderBouquet('real_mitad')">Mitad</button>
+      <button onclick="renderBouquet('real_rosa')">Rosa</button>
+      <button onclick="renderBouquet('real_negro')">Negra</button>
+    </div>
+  </div>
+
+  <button onclick="toggleDarkMode()" style="margin-top:20px;">Modo Oscuro</button>
+
+  <div class="hearts" id="hearts"></div>
+
+<script>
+  function toggleDarkMode() {
+    document.body.classList.toggle('dark-mode');
+  }
+
+  function spawnHearts() {
+    const hearts = document.getElementById('hearts');
+    const h = document.createElement('div');
+    h.className = 'heart';
+    h.style.left = Math.random() * 100 + '%';
+    h.style.animationDuration = 3 + Math.random() * 3 + 's';
+    h.innerHTML = '💖';
+    hearts.appendChild(h);
+    setTimeout(() => h.remove(), 6000);
+  }
+  setInterval(spawnHearts, 500);
+
+  function showBouquetImage(path) {
+    document.getElementById('bouquetContainer').innerHTML = `
+      <img src="${path}" 
+           style="width:220px;height:260px;object-fit:cover;border-radius:8px;
+                  box-shadow:0 6px 18px rgba(0,0,0,0.25);" />
+    `;
+  }
+
+  function renderBouquet(style) {
+    if (style === 'real_rosa') return showBouquetImage('imagenes/ramo_rosa.png');
+    if (style === 'real_negro') return showBouquetImage('imagenes/ramo_negro.png');
+    if (style === 'real_mitad') return showBouquetImage('imagenes/ramo_mitad.png');
+  }
+
+  showBouquetImage('imagenes/ramo_rosa.png');
+</script>
+
+<!-- SECCIÓN EXTRA GENERAL -->
+<div id="extra-section">
+  <h2>Aca voy a seguir escribiendo cosas que nos pasen askjkas</h2>
+  <p>Pd: la mejor juntada de todas con el choker (chispa)</p>
+  <p>Estabas re linda… me volviste loco, pero no me animé a decírtelo en el momento. Me agarró una vergüenza tonta y me quedé callado como un boludo (ahora ya lo sabes)</p>
+
+  <img src="imagenes/IMG_2927.jpg" style="max-width:230px;border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,0.25);margin-top:10px;">
+</div>
+
+<!-- NUEVAS CAJAS DE FOTO + TEXTO -->
+<div class="memory-box">
+  <img src="imagenes/mate.jpg">
+  <p>Acá la pasé increíble con vos. Me reí como hacía mucho no me pasaba, disfruté cada segundo y pude ser yo de verdad. Cuando te abracé y te besé, ahí sentí todo… sentí que sos exactamente eso que siempre pensé de vos: linda, especial y distinta. Gracias por hacerme sentir así 
+</div>
+
+<div class="memory-box">
+  <img src="imagenes/anillos.jpg">
+  <p>Acá, aunque hacía un calor terrible y jodíamos todo el tiempo, no podía dejar de mirarte… lo linda que sos me tiene completamente loco. Me sigo riendo cuando el de seguridad dijo que yo era el último romántico y nos pusimos a hablar de fútbol asdkjasdjk. Me encanta llenarte de besos, probar cosas solo porque a vos te gustan y darme cuenta de que tenemos tantas cosas en común. Con vos todo se siente distinto, más lindo</p>
+</div>
+
+<div class="memory-box">
+  <img src="imagenes/reabuelosmal.jpg">
+  <p>Acá estábamos sacándonos fotos y terminamos haciendo una como si fuéramos unos terribles viejardos kajsdaksjd. Pero posta… qué linda que salís en todas. A veces no sé qué hice para merecerte, porque sos una chica tan hermosa que me dejás sin palabras cada vez que te miro.</p>
+</div>
+<div class="memory-box"></div>
+<img src="imagenes/rebesados.jpg" alt="">
+<p>Acá nos estábamos sacando fotos y terminamos sacando una besándonos… como para no olvidarme nunca de tus besos. Cómo te extraño. A veces no sé bien cómo expresar todo lo que me pasa, pero de verdad: te veo y me da una paz que no encuentro en ningún otro lado</p>
+</body>
+</html>
